@@ -1,0 +1,199 @@
+---
+---
+
+<section id="top" class="hero">
+  <div class="container">
+
+    <div data-reveal class="hero-label">
+      FRONTEND&nbsp;ENGINEER
+      <span class="cursor">▍</span>
+    </div>
+
+    <h1 data-reveal class="hero-name">박명재</h1>
+
+    <div data-reveal class="hero-subtitle">
+      프론트엔드 개발자 — Frontend Engineer
+    </div>
+
+    <p data-reveal class="hero-description">
+      측정 기반의 성능 최적화로 사용자가 체감할 수 있는 변화를 만들고, 팀 전체가 일관되게
+      유지할 수 있는 아키텍처와 컨벤션을 설계합니다. 타입 시스템과 테스트를 통해 도구가
+      오류를 잡아주는 코드베이스를 지향합니다.
+    </p>
+
+    <div data-reveal class="hero-links">
+      <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="hero-link">
+        github.com/park-moen<span class="link-arrow">↗</span>
+      </a>
+      <a href="https://park-moen.github.io" target="_blank" rel="noopener" class="hero-link">
+        park-moen.github.io<span class="link-arrow">↗</span>
+      </a>
+    </div>
+
+    <div id="pm-hero-metrics" data-reveal class="metrics">
+      <div class="metric">
+        <div class="metric-value">
+          <span class="from">75</span>
+          <span class="arrow">→</span>
+          <span class="to">1</span>
+        </div>
+        <div class="metric-label">
+          폼 리렌더 실행 횟수<span class="metric-tag"> · UNIBUSK</span>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">
+          <span class="from">2</span>
+          <span class="arrow">→</span>
+          <span class="to">0</span>
+        </div>
+        <div class="metric-label">
+          클라이언트 API 요청<span class="metric-tag"> · Hydration</span>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">
+          <span class="highlight">−75%</span>
+        </div>
+        <div class="metric-label">
+          프로필 TBT<span class="metric-tag"> · 40ms→10ms</span>
+        </div>
+      </div>
+      <div class="metric">
+        <div class="metric-value">
+          <span class="from">9s</span>
+          <span class="arrow">→</span>
+          <span class="to">36ms</span>
+        </div>
+        <div class="metric-label">
+          Turborepo 캐시 복원<span class="metric-tag"> · cache hit</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: 148px;
+    padding-bottom: clamp(56px, 9vw, 104px);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .cursor {
+    animation: blink 1.05s step-end infinite;
+    color: var(--accent);
+    margin-left: 4px;
+  }
+
+  .hero-name {
+    font-size: clamp(54px, 9.5vw, 108px);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+    margin-top: 20px;
+  }
+
+  .hero-subtitle {
+    font-family: var(--mono);
+    font-size: clamp(15px, 2vw, 19px);
+    color: var(--muted);
+    margin-top: 20px;
+  }
+
+  .hero-description {
+    max-width: 700px;
+    font-size: clamp(16px, 1.7vw, 19px);
+    line-height: 1.78;
+    color: var(--ink-soft);
+    margin-top: 30px;
+  }
+
+  .hero-links {
+    margin-top: 32px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .hero-link {
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 10px 18px;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    background: var(--surface);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--ink);
+  }
+
+  .link-arrow {
+    color: var(--accent);
+  }
+
+  .metrics {
+    margin-top: clamp(48px, 7vw, 72px);
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 28px 24px;
+  }
+
+  .metric-value {
+    font-family: var(--mono);
+    font-size: clamp(21px, 2.4vw, 27px);
+    font-weight: 600;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .metric-value .from {
+    color: var(--faint);
+    font-weight: 500;
+  }
+
+  .metric-value .arrow {
+    color: var(--accent);
+    font-size: 0.7em;
+  }
+
+  .metric-value .to {
+    color: var(--ink);
+  }
+
+  .metric-value .highlight {
+    color: var(--accent);
+  }
+
+  .metric-label {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-top: 9px;
+    line-height: 1.5;
+  }
+
+  .metric-tag {
+    color: var(--faint);
+  }
+</style>

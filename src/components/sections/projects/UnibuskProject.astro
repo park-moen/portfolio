@@ -1,0 +1,298 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<div data-reveal class="project">
+  <div class="project-header">
+    <span class="project-num">01</span>
+    <div class="project-info">
+      <h3 class="project-name">UNIBUSK</h3>
+      <div class="project-subtitle">버스킹 공연 플랫폼</div>
+    </div>
+  </div>
+
+  <div class="meta-table">
+    <div class="meta-row">
+      <div class="meta-key">기간</div>
+      <div class="meta-value">2025.12 – 2026.02 (MVP) / 2026.04 ~ 진행중 (고도화)</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">팀원</div>
+      <div class="meta-value">FE 2명 · BE 3명 · 디자인 2명 · 기획 1명</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">역할</div>
+      <div class="meta-value">공연 정보 · 공연 등록/상세 · Kakao OAuth2 · 프로필 영역 개발</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">기술</div>
+      <div class="meta-value">
+        <div class="tech-badges">
+          <span class="tech-badge">Next.js App Router</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">TanStack Query</span>
+          <span class="tech-badge">Zustand</span>
+          <span class="tech-badge">Zod</span>
+          <span class="tech-badge">React Hook Form</span>
+          <span class="tech-badge">Tailwind CSS</span>
+          <span class="tech-badge">Storybook</span>
+          <span class="tech-badge">Cloudflare Workers</span>
+        </div>
+      </div>
+    </div>
+    <div class="meta-row last">
+      <div class="meta-key">링크</div>
+      <div class="meta-value">
+        <div class="link-row">
+          <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="link-accent">GitHub ↗</a>
+          <span class="link-muted">서비스 ↗ <span class="link-faint">(09:00~21:00)</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-card-label">렌더 함수 실행</div>
+      <div class="metric-card-value">
+        <span class="from">75회</span>
+        <span class="arrow">→</span>
+        <span class="to">1회</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">클라이언트 API 요청</div>
+      <div class="metric-card-value">
+        <span class="from">2건</span>
+        <span class="arrow">→</span>
+        <span class="to">0건</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">
+        프로필 TBT
+        <span class="pct-badge">−75%</span>
+      </div>
+      <div class="metric-card-value">
+        <span class="from">40ms</span>
+        <span class="arrow">→</span>
+        <span class="to">10ms</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">
+        공연 목록 TBT
+        <span class="pct-badge">−62%</span>
+      </div>
+      <div class="metric-card-value">
+        <span class="from">80ms</span>
+        <span class="arrow">→</span>
+        <span class="to">30ms</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE 01 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 01</span>
+      <h4 class="case-title">공연 등록 폼 리렌더 최적화: 75회 → 1회</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        RHF의 비제어 컴포넌트 패턴을 적용하면 입력 시 리렌더가 줄어들 것이라고 예상했습니다.
+        그러나 React DevTools Profiler로 확인한 결과, 글자 수 표시를 위해 사용한
+        <code>watch('teamName')</code> 한 줄로 인해 팀 이름 입력 시 하위 트리 전체가
+        리렌더되고 있었습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <p class="case-value">
+        <code>watch()</code>의 구독이 <code>useForm</code>을 호출한 컴포넌트(RegisterModal)에
+        등록된다는 점을 파악하고, <code>useWatch()</code>를 글자 수 표시만 담당하는
+        <code>TeamNameCharCount</code> 컴포넌트 내부로 이동해 구독 범위를 제한했습니다.
+        이후 각 입력 필드를 독립 컴포넌트로 분리했지만 예상치 못한 리렌더가 남아 있었습니다.
+        <code>useFormContext().formState.errors</code>가 전체 errors 객체를 구독해 다른 필드
+        입력 시에도 에러 상태 갱신이 발생했기 때문입니다.
+        <code>useFormState({'{'} name: 'fieldName' {'}'})</code>으로 구독 범위를 개별 필드
+        단위로 좁혀 해결했습니다.
+      </p>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-highlight">렌더 함수 실행 횟수 75회 → 1회</div>
+        <p>
+          <code>console.count</code> 기준 렌더 함수 실행 횟수가 75회에서 1회로 감소했습니다.
+          Profiler의 시각 정보만으로는 실제 렌더 함수 실행 여부를 구분하기 어렵다는 점을
+          이 과정에서 확인했습니다.
+        </p>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+
+    <div data-reveal class="image-gallery">
+      <div class="gallery-title">PROFILER — React DevTools</div>
+      <div class="gallery-grid">
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot before"></span>
+            최적화 전 — 입력 시 하위 트리 전체 리렌더
+          </figcaption>
+          <a href={`${base}images/portfolio/init.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/init.png`}
+              alt="최적화 전 Profiler 플레임 차트"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot after"></span>
+            최적화 후 — TeamName 관련 컴포넌트만 렌더
+          </figcaption>
+          <a href={`${base}images/portfolio/final-step01.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/final-step01.png`}
+              alt="최적화 후 Profiler 플레임 차트 — bail-out"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+      </div>
+      <p class="gallery-note">
+        색이 칠해진 컴포넌트만 실제 렌더, 회색은 React가 건너뛴 bail-out · 이미지 클릭 시 원본
+      </p>
+    </div>
+  </article>
+
+  <!-- CASE 02 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 02</span>
+      <h4 class="case-title">Code Splitting 적용 기준과 barrel import 문제</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        초기 화면에서 즉시 사용되지 않는 <code>RegisterModal</code>과
+        <code>ProfileEditModal</code>이 초기 번들에 포함되어 불필요한 JS 파싱 비용이
+        발생하고 있었습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <div class="case-value">
+        <p><code>next/dynamic</code> 적용 기준을 세 가지로 정의했습니다.</p>
+        <ol class="criteria-list">
+          <li class="criteria-item">
+            <span class="criteria-num">①</span>
+            <span>조건부로 렌더링되는 컴포넌트인가</span>
+          </li>
+          <li class="criteria-item">
+            <span class="criteria-num">②</span>
+            <span>해당 컴포넌트에서만 사용하는 비교적 무거운 패키지가 있는가</span>
+          </li>
+          <li class="criteria-item">
+            <span class="criteria-num">③</span>
+            <span>현재 페이지의 LCP 요소가 아닌가</span>
+          </li>
+        </ol>
+        <p>
+          barrel 파일(<code>index.ts</code>)을 경유해 dynamic import를 작성하면 Webpack이
+          barrel 파일 기준으로 모듈 그래프를 구성해 분리가 안 됩니다. dynamic import 경로를
+          실제 컴포넌트 소스 파일로 직접 변경해 해결했습니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-badges">
+          <span class="result-badge">프로필 TBT 40ms → 10ms <span class="pct">(75%↓)</span></span>
+          <span class="result-badge">공연 목록 TBT 80ms → 30ms <span class="pct">(62%↓)</span></span>
+        </div>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- CASE 03 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 03</span>
+      <h4 class="case-title">TanStack Query Hydration Pattern으로 클라이언트 API 요청 제거</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        <code>'use client'</code> + <code>useQuery</code> 구조에서는 JS 로드와 hydration
+        이후에 API 요청이 시작됩니다. Slow 3G 환경에서 동일 API 요청이 2초 이상 지연되는
+        waterfall이 발생했고, SEO 크롤러가 빈 콘텐츠를 인식하는 문제도 있었습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <p class="case-value">
+        페이지 성격에 따라 다르게 설계했습니다. 공연 상세 페이지는 React의 <code>cache</code>
+        함수로 서버 요청 단위 메모이제이션을 적용해 API 호출을 1회로 줄이고,
+        <code>prefetchQuery</code> 대신 <code>setQueryData</code>를 사용해 추가 네트워크 요청
+        없이 클라이언트 캐시에 데이터를 주입했습니다. 공연 목록 페이지는
+        <code>prefetchInfiniteQuery</code>로 첫 페이지만 서버에서 가져오고 이후 페이지는
+        클라이언트에서 이어서 요청하도록 구성했습니다.
+      </p>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-highlight">클라이언트 API 요청 2건 → 0건 · Slow 3G 2초+ 대기 제거</div>
+        <p>
+          Hydration Pattern은 클라이언트의 대기 시간을 서버의 TTFB 구간으로 옮기는 방식으로,
+          클라이언트 Network 탭에서 동일 API 요청이 사라진 것을 확인해 검증했습니다.
+        </p>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+  </article>
+</div>

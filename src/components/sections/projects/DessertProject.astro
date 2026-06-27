@@ -1,0 +1,316 @@
+---
+const base = import.meta.env.BASE_URL;
+---
+
+<div data-reveal class="project project-divider">
+  <div class="project-header">
+    <span class="project-num">02</span>
+    <div class="project-info">
+      <h3 class="project-name">Dessert Front Dashboard</h3>
+      <div class="project-subtitle">판매자·관리자 대시보드</div>
+      <div class="migration-badge">
+        <span class="migration-from">migration</span>
+        Redux Toolkit + Saga + reduxMaker
+        <span class="migration-arrow">→</span>
+        <span class="migration-to">TanStack Query + Zustand + RHF + Zod</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-table">
+    <div class="meta-row">
+      <div class="meta-key">기간</div>
+      <div class="meta-value">2026.03 ~ 진행중</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">팀원</div>
+      <div class="meta-value">FE 4명 · BE 6명 · 디자이너 1명 · 기획 1명</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">역할</div>
+      <div class="meta-value">모노레포 설계 · FSD 컨벤션 가이드 수립 · 코드 리뷰 · 관리자 대시보드/공통 패키지 개발</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">기술</div>
+      <div class="meta-value">
+        <div class="tech-badges">
+          <span class="tech-badge">React 19</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">Vite</span>
+          <span class="tech-badge">Tailwind CSS</span>
+          <span class="tech-badge">shadcn/ui</span>
+          <span class="tech-badge">Turborepo</span>
+          <span class="tech-badge">Yarn Workspaces</span>
+          <span class="tech-badge">FSD</span>
+          <span class="tech-badge">Storybook</span>
+          <span class="tech-badge">TanStack Query</span>
+        </div>
+      </div>
+    </div>
+    <div class="meta-row last">
+      <div class="meta-key">링크</div>
+      <div class="meta-value">
+        <div class="link-row">
+          <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="link-accent">GitHub ↗</a>
+          <span class="link-muted">판매자 서비스 ↗</span>
+          <span class="link-muted">관리자 서비스 ↗</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metrics-grid wide">
+    <div class="metric-card">
+      <div class="metric-card-label">Turborepo 빌드 복원 (cache hit)</div>
+      <div class="metric-card-value">
+        <span class="from">약 9초</span>
+        <span class="arrow">→</span>
+        <span class="to">36~64ms</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">FSD 파일 위치 결정 논의</div>
+      <div class="metric-card-value">
+        <span class="to">최소화</span>
+        <span class="metric-note">suffix 규칙 + 3원칙 문서화</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE 01 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 01</span>
+      <h4 class="case-title">FSD 컨벤션 가이드 수립으로 위치 결정 논의 최소화</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        FSD 폴더 구조는 적용되어 있었지만 Segment 분류 기준이 문서화되어 있지 않아 팀원마다
+        해석이 달랐습니다. 새 파일을 추가할 때마다 "이 파일을 어디에 두어야 하나요?"라는
+        위치 결정 논의가 PR마다 반복됐습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <div class="case-value">
+        <p>세 가지 기준을 팀 가이드로 문서화했습니다.</p>
+        <ol class="criteria-list fsd">
+          <li class="criteria-item">
+            <span class="criteria-num">①</span>
+            <div>
+              <div class="criteria-title">파일 suffix 규칙</div>
+              <div class="criteria-text">
+                <code>.api.ts</code> / <code>.query.ts</code> / <code>.mutation.ts</code> /
+                <code>.type.ts</code> / <code>.hook.ts</code> / <code>.ui.tsx</code>처럼
+                suffix로 역할을 드러내, 파일을 열기 전에도 책임을 파악할 수 있도록 했습니다.
+              </div>
+            </div>
+          </li>
+          <li class="criteria-item">
+            <span class="criteria-num">②</span>
+            <div>
+              <div class="criteria-title">단방향 의존성 + Public API · Cross-import 금지</div>
+              <div class="criteria-text">
+                상위 레이어가 하위 레이어를 참조하는 흐름을 유지하고, 슬라이스 내부 구현이
+                외부에서 직접 참조되지 않도록 했습니다.
+              </div>
+            </div>
+          </li>
+          <li class="criteria-item">
+            <span class="criteria-num">③</span>
+            <div>
+              <div class="criteria-title">TanStack Query 배치 기준</div>
+              <div class="criteria-text">
+                <code>useQuery</code> 관련 파일은 entities 레이어,
+                <code>useMutation</code> 관련 파일은 features 레이어로 통일했습니다.
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <p>PR 리뷰에서 파일 구조 논의보다 비즈니스 로직과 도메인 로직에 더 집중할 수 있었습니다.</p>
+        <div class="result-links">
+          <a class="result-link">→ 컨벤션 문서</a>
+          <a class="result-link">→ 작업 파이프라인 문서</a>
+        </div>
+      </div>
+    </div>
+
+    <div data-reveal class="image-gallery">
+      <div class="gallery-title">FILE STRUCTURE — before / after</div>
+      <div class="gallery-grid four">
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot before"></span>
+            Before · features/auth — 폴더 분리
+          </figcaption>
+          <a href={`${base}images/portfolio/before-fsd-auth.png`} target="_blank" rel="noopener" class="gallery-link short">
+            <img
+              src={`${base}images/portfolio/before-fsd-auth.png`}
+              alt="Before — features/auth 폴더 분리 구조"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot before"></span>
+            Before · features/orders — 파일 나열
+          </figcaption>
+          <a href={`${base}images/portfolio/before-fsd-order.png`} target="_blank" rel="noopener" class="gallery-link short">
+            <img
+              src={`${base}images/portfolio/before-fsd-order.png`}
+              alt="Before — features/orders 파일 나열 구조"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot after"></span>
+            After · entities — <code>.api</code> / <code>.query</code> / <code>.type</code>
+          </figcaption>
+          <a href={`${base}images/portfolio/after-fsd-entity.png`} target="_blank" rel="noopener" class="gallery-link short">
+            <img
+              src={`${base}images/portfolio/after-fsd-entity.png`}
+              alt="After — entities 레이어 suffix 적용"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot after"></span>
+            After · features — <code>.ui</code> / <code>.mutation</code>
+          </figcaption>
+          <a href={`${base}images/portfolio/after-fsd-feature.png`} target="_blank" rel="noopener" class="gallery-link short">
+            <img
+              src={`${base}images/portfolio/after-fsd-feature.png`}
+              alt="After — features 레이어 suffix 적용"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+      </div>
+    </div>
+  </article>
+
+  <!-- CASE 02 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 02</span>
+      <h4 class="case-title">내부 Redux 유틸리티에서 표준 상태 관리 구조로 전환</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        기존 코드베이스는 Redux Toolkit + Redux Saga + 내부 유틸리티 <code>reduxMaker</code>를
+        함께 사용했습니다. <code>reduxMaker</code>는 이 프로젝트 내부에서만 통용되는 비표준
+        API여서, 처음 합류한 개발자가 비동기 흐름을 이해하기 어려웠습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <div class="case-value">
+        <div class="state-badges">
+          <span class="state-badge">서버 상태 · TanStack Query</span>
+          <span class="state-badge">클라이언트 상태 · Zustand</span>
+          <span class="state-badge">폼 상태 · RHF + Zod</span>
+        </div>
+        <p>
+          상태의 성격에 따라 라이브러리의 책임을 분리했습니다. mutation 성공 후
+          <code>invalidateQueries</code>로 관련 query를 무효화해 "데이터 변경 → 관련 데이터
+          재조회" 흐름을 선언적으로 표현했습니다.
+        </p>
+      </div>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <p>
+          <code>reduxMaker</code> 내부 구현을 분석하지 않고도 온보딩 자료만으로 서버 상태 관리
+          흐름을 이해할 수 있게 됐습니다. <code>queryKey</code>, <code>queryFn</code>,
+          <code>mutationFn</code>이 명시적으로 드러나 요청 흐름 추적이 쉬워졌습니다.
+        </p>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- CASE 03 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 03</span>
+      <h4 class="case-title">Yarn Workspaces + Turborepo 기반 모노레포 설계</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        Admin 프로젝트 기획이 확정됐을 때 별도 저장소로 분리하면 디자인 시스템 컴포넌트,
+        SVGR 아이콘, 디자인 토큰을 두 저장소에서 각각 관리해야 했습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <p class="case-value">
+        Yarn Berry Workspaces와 Turborepo를 기반으로 모노레포를 구성했습니다. 공유 자원은
+        <code>@dessert/ui</code>와 <code>@dessert/icons</code>로 분리하고,
+        <code>turbo.json</code>의 <code>"dependsOn": ["^build"]</code> 설정으로 빌드 순서를
+        보장했습니다. FSD의 <code>shared</code> 레이어와 모노레포의 <code>packages/</code>의
+        개념 차이를 명확히 구분해 혼선을 방지했습니다.
+      </p>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-highlight">캐시 미사용 약 9초 → cache hit 36~64ms 복원</div>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+  </article>
+</div>

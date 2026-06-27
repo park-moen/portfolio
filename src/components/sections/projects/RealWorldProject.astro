@@ -1,0 +1,181 @@
+---
+---
+
+<div data-reveal class="project project-divider">
+  <div class="project-header">
+    <span class="project-num">03</span>
+    <div class="project-info">
+      <h3 class="project-name">Real World</h3>
+      <div class="project-subtitle">풀스택 블로그 플랫폼 — 1인 (FE + BE)</div>
+    </div>
+  </div>
+
+  <div class="meta-table">
+    <div class="meta-row">
+      <div class="meta-key">기간</div>
+      <div class="meta-value">2025.10 – 2025.12</div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">FE</div>
+      <div class="meta-value">
+        <div class="tech-badges">
+          <span class="tech-badge">React</span>
+          <span class="tech-badge">TypeScript</span>
+          <span class="tech-badge">React Router v7</span>
+          <span class="tech-badge">TanStack Query</span>
+          <span class="tech-badge">Vitest</span>
+          <span class="tech-badge">RTL</span>
+          <span class="tech-badge">MSW</span>
+          <span class="tech-badge">Cypress</span>
+          <span class="tech-badge">Vercel</span>
+        </div>
+      </div>
+    </div>
+    <div class="meta-row">
+      <div class="meta-key">BE</div>
+      <div class="meta-value">
+        <div class="tech-badges">
+          <span class="tech-badge">NestJS</span>
+          <span class="tech-badge">PostgreSQL</span>
+          <span class="tech-badge">Prisma</span>
+          <span class="tech-badge">Docker</span>
+          <span class="tech-badge">Railway</span>
+        </div>
+      </div>
+    </div>
+    <div class="meta-row last">
+      <div class="meta-key">링크</div>
+      <div class="meta-value">
+        <div class="link-row">
+          <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="link-accent">FE GitHub ↗</a>
+          <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="link-accent">BE GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-card-label">
+        Slow 4G 로드
+        <span class="pct-badge">−30%</span>
+      </div>
+      <div class="metric-card-value">
+        <span class="from">5,789ms</span>
+        <span class="arrow">→</span>
+        <span class="to">4,087ms</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">
+        3G 로드
+        <span class="pct-badge">−25%</span>
+      </div>
+      <div class="metric-card-value">
+        <span class="from">20,506ms</span>
+        <span class="arrow">→</span>
+        <span class="to">15,306ms</span>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-card-label">Refresh Token 중복 요청</div>
+      <div class="metric-card-value">
+        <span class="from">4회</span>
+        <span class="arrow">→</span>
+        <span class="to">1회</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE 01 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 01</span>
+      <h4 class="case-title">React Router v7 Loader로 Request Waterfall 제거</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        <code>lazy()</code> 내부에서 <code>loader</code>를 함께 정의하면 route module
+        다운로드가 완료된 이후에야 loader를 실행할 수 있어 waterfall이 남아 있었습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <p class="case-value">
+        React Router v7.5의 object-based <code>route.lazy</code> API를 사용해
+        <code>lazy: {'{'} loader, Component {'}'}</code> 형태로 각 속성을 독립적으로
+        불러오도록 구성했습니다. Component 모듈이 다운로드 중이더라도 loader 모듈이 먼저
+        준비되면 데이터 요청을 시작할 수 있어, chunk 다운로드와 데이터 패칭을 병렬화했습니다.
+      </p>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-badges">
+          <span class="result-badge">Slow 4G 5,789ms → 4,087ms <span class="pct">(30%↓)</span></span>
+          <span class="result-badge">3G 20,506ms → 15,306ms <span class="pct">(25%↓)</span></span>
+        </div>
+        <a class="result-link">→ 정리 글</a>
+      </div>
+    </div>
+  </article>
+
+  <!-- CASE 02 -->
+  <article data-reveal class="case">
+    <div class="case-header">
+      <span class="case-num">CASE 02</span>
+      <h4 class="case-title">Refresh Token 중복 호출 방지</h4>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label">PROBLEM</div>
+        <div class="case-key-name muted">문제</div>
+      </div>
+      <p class="case-value">
+        Access Token 만료 시 동시에 실행된 4개 API 요청이 모두 401을 받아 각각 독립적으로
+        재발급을 시도해 요청이 4번 중복됐고, Race Condition 위험이 생겼습니다.
+      </p>
+    </div>
+
+    <div class="case-row">
+      <div class="case-key">
+        <div class="case-key-label accent">SOLUTION</div>
+        <div class="case-key-name">해결</div>
+      </div>
+      <p class="case-value">
+        Axios Response Interceptor에 <code>TokenManager</code> 클래스를 구현해 토큰 재발급
+        요청을 단일화했습니다. <code>refreshState</code>(idle | refreshing)로 진행 여부를
+        관리해 첫 번째 401만 재발급을 시작하고, 이후 요청은 Promise 기반 대기 큐에
+        추가했습니다. <code>TOKEN_EXPIRED</code>는 재발급 후 재시도,
+        <code>REFRESH_TOKEN_REVOKED</code>는 즉시 로그아웃으로 에러 타입을 분리했습니다.
+        Access Token은 Local Storage, Refresh Token은 HttpOnly Cookie에 저장해
+        XSS 트레이드오프를 관리했습니다.
+      </p>
+    </div>
+
+    <div class="case-row last">
+      <div class="case-key">
+        <div class="case-key-label accent">RESULT</div>
+        <div class="case-key-name">결과</div>
+      </div>
+      <div class="case-value">
+        <div class="result-highlight">토큰 재발급 요청 4회 → 1회</div>
+        <a class="result-link">→ PR</a>
+      </div>
+    </div>
+  </article>
+</div>

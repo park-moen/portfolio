@@ -1,0 +1,139 @@
+---
+---
+
+<section id="stack" class="stack">
+  <div class="container">
+
+    <div data-reveal class="section-header">
+      <span class="section-number">// 01</span>
+      <h2 class="section-title">Tech Stack</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div data-reveal class="stack-list">
+      <div class="stack-row">
+        <div class="stack-category">Frontend</div>
+        <div class="badge-group">
+          <span class="badge">React</span>
+          <span class="badge">Next.js</span>
+          <span class="badge">TypeScript</span>
+          <span class="badge">TanStack Query</span>
+          <span class="badge">Zustand</span>
+          <span class="badge">React Hook Form</span>
+          <span class="badge">Zod</span>
+          <span class="badge">Tailwind CSS</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Testing</div>
+        <div class="badge-group">
+          <span class="badge">Vitest</span>
+          <span class="badge">React Testing Library</span>
+          <span class="badge">MSW</span>
+          <span class="badge">Cypress</span>
+        </div>
+      </div>
+      <div class="stack-row">
+        <div class="stack-category">Tooling</div>
+        <div class="badge-group">
+          <span class="badge">Turborepo</span>
+          <span class="badge">Yarn Berry Workspaces</span>
+          <span class="badge">Storybook</span>
+          <span class="badge">Vite</span>
+        </div>
+      </div>
+      <div class="stack-row last">
+        <div class="stack-category">Backend</div>
+        <div class="badge-group">
+          <span class="badge">NestJS</span>
+          <span class="badge">PostgreSQL</span>
+          <span class="badge">Prisma</span>
+          <span class="badge">Docker</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .stack {
+    padding-top: clamp(56px, 8vw, 104px);
+    padding-bottom: clamp(56px, 8vw, 104px);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 44px;
+  }
+
+  .section-number {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .stack-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stack-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 18px;
+    padding: 20px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+
+  .stack-row.last {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stack-category {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding-top: 3px;
+  }
+
+  .badge-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 13px;
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    padding: 5px 11px;
+    border-radius: 7px;
+    color: var(--ink-soft);
+  }
+</style>

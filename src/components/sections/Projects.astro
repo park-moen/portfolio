@@ -1,0 +1,529 @@
+---
+import UnibuskProject from './projects/UnibuskProject.astro';
+import DessertProject from './projects/DessertProject.astro';
+import RealWorldProject from './projects/RealWorldProject.astro';
+---
+
+<section id="projects" class="projects">
+  <div class="container">
+
+    <div data-reveal class="section-header">
+      <span class="section-number">// 02</span>
+      <h2 class="section-title">Projects</h2>
+      <div class="section-line"></div>
+      <span class="section-count">03</span>
+    </div>
+
+    <UnibuskProject />
+    <DessertProject />
+    <RealWorldProject />
+
+  </div>
+</section>
+
+<style is:global>
+  .projects {
+    padding-top: clamp(56px, 8vw, 104px);
+    padding-bottom: clamp(56px, 8vw, 104px);
+  }
+
+  /* ── 섹션 헤더 ── */
+  .projects .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 8px;
+  }
+
+  .projects .section-number {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .projects .section-title {
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .projects .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .section-count {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--faint);
+  }
+
+  /* ── 프로젝트 ── */
+  .project {
+    margin-top: 72px;
+  }
+
+  .project-divider {
+    margin-top: 96px;
+    padding-top: 96px;
+    border-top: 1px solid var(--line);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(16px, 3vw, 28px);
+  }
+
+  .project-num {
+    font-family: var(--mono);
+    font-size: clamp(38px, 6vw, 62px);
+    font-weight: 600;
+    color: var(--line-2);
+    line-height: 0.85;
+  }
+
+  .project-info {
+    flex: 1;
+  }
+
+  .project-name {
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 750;
+    letter-spacing: -0.025em;
+  }
+
+  .project-subtitle {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+
+  .migration-badge {
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    padding: 7px 12px;
+    border-radius: 8px;
+  }
+
+  .migration-from { color: var(--faint); }
+  .migration-arrow { color: var(--accent); }
+  .migration-to { color: var(--ink); font-weight: 600; }
+
+  /* ── 메타 테이블 ── */
+  .meta-table {
+    margin-top: 36px;
+  }
+
+  .meta-row {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 18px;
+    padding: 13px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .meta-row.last {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .meta-key {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding-top: 3px;
+  }
+
+  .meta-value {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .tech-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-badge {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--code-bg);
+    border: 1px solid var(--line);
+    padding: 3px 9px;
+    border-radius: 6px;
+    color: var(--ink-soft);
+  }
+
+  .link-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+
+  .link-accent {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  .link-muted {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .link-faint { color: var(--faint); }
+
+  /* ── 수치 카드 ── */
+  .metrics-grid {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+    gap: 14px;
+  }
+
+  .metrics-grid.wide {
+    grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  }
+
+  .metric-card {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 22px;
+    background: var(--surface);
+  }
+
+  .metric-card-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pct-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-line);
+    padding: 2px 7px;
+    border-radius: 999px;
+  }
+
+  .metric-card-value {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    flex-wrap: wrap;
+  }
+
+  .metric-card-value .from {
+    font-family: var(--mono);
+    font-size: clamp(20px, 2.4vw, 26px);
+    color: var(--faint);
+    font-weight: 500;
+  }
+
+  .metric-card-value .arrow { color: var(--accent); }
+
+  .metric-card-value .to {
+    font-family: var(--mono);
+    font-size: clamp(24px, 2.8vw, 32px);
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .metric-note {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── CASE 스터디 ── */
+  .case {
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    padding: clamp(22px, 3vw, 34px);
+  }
+
+  .case + .case {
+    margin-top: 18px;
+  }
+
+  .case-header {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 26px;
+  }
+
+  .case-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+
+  .case-title {
+    font-size: clamp(17px, 2.1vw, 21px);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .case-row {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 22px;
+    padding-bottom: 22px;
+  }
+
+  .case-row + .case-row {
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+  }
+
+  .case-row.last {
+    padding-bottom: 0;
+  }
+
+  .case-key-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+  }
+
+  .case-key-label.accent { color: var(--accent); }
+
+  .case-key-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-top: 3px;
+  }
+
+  .case-key-name.muted { color: var(--muted); }
+
+  .case-value {
+    font-size: 15px;
+    line-height: 1.78;
+    color: var(--ink-soft);
+  }
+
+  .case-value p { margin: 0; }
+  .case-value p + p { margin-top: 12px; }
+
+  .result-highlight {
+    border-left: 2px solid var(--accent);
+    background: var(--accent-tint);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    font-family: var(--mono);
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .result-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 16px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    cursor: pointer;
+  }
+
+  .result-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .result-links .result-link { margin-top: 0; }
+
+  .result-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .result-badge {
+    border-left: 2px solid var(--accent);
+    background: var(--accent-tint);
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .result-badge .pct { color: var(--accent); }
+
+  /* ── 기준 목록 ── */
+  .criteria-list {
+    margin: 16px 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .criteria-list.fsd { gap: 14px; }
+
+  .criteria-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .criteria-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    flex: none;
+    padding-top: 1px;
+  }
+
+  .criteria-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .criteria-text {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+
+  /* ── 상태 관리 뱃지 ── */
+  .state-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .state-badge {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    background: var(--accent-tint);
+    border: 1px solid var(--accent-line);
+    padding: 5px 11px;
+    border-radius: 7px;
+    color: var(--ink);
+  }
+
+  /* ── 이미지 갤러리 ── */
+  .image-gallery {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  .gallery-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--faint);
+    margin-bottom: 16px;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .gallery-grid.four {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .gallery-figure { margin: 0; }
+
+  .gallery-caption {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .gallery-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex: none;
+  }
+
+  .gallery-dot.before { background: #f59e0b; }
+  .gallery-dot.after  { background: var(--accent); }
+
+  .gallery-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1b2230;
+    height: clamp(300px, 38vw, 460px);
+  }
+
+  .gallery-link.short {
+    height: clamp(220px, 26vw, 320px);
+  }
+
+  .gallery-image {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+  }
+
+  .gallery-note {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--faint);
+    margin-top: 11px;
+    line-height: 1.6;
+  }
+
+  /* ── .container (Projects 전용) ── */
+  .projects .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+  }
+</style>

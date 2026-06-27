@@ -1,0 +1,199 @@
+---
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a data-scroll="top" class="site-logo">
+      박명재
+      <span class="logo-role">/ FE</span>
+    </a>
+    <nav class="nav">
+      <span data-navgroup class="nav-group">
+        <a data-nav="stack" data-scroll="stack" class="nav-link">
+          <span data-dot class="nav-dot"></span>Stack
+        </a>
+        <a data-nav="projects" data-scroll="projects" class="nav-link">
+          <span data-dot class="nav-dot"></span>Projects
+        </a>
+        <a data-nav="activity" data-scroll="activity" class="nav-link">
+          <span data-dot class="nav-dot"></span>Activity
+        </a>
+        <span class="nav-divider"></span>
+      </span>
+      <a href="https://github.com/park-moen" target="_blank" rel="noopener" class="nav-external">
+        GitHub<span class="nav-arrow"> ↗</span>
+      </a>
+      <a href="https://park-moen.github.io" target="_blank" rel="noopener" class="nav-external">
+        Blog<span class="nav-arrow"> ↗</span>
+      </a>
+    </nav>
+  </div>
+  <div id="pm-progress" class="scroll-progress"></div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    background: rgba(250, 250, 250, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 5vw, 40px);
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .site-logo {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-role {
+    color: var(--faint);
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 13px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .nav-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .nav-link {
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 6px 11px;
+    color: var(--faint);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--line-2);
+    margin: 0 8px;
+  }
+
+  .nav-external {
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 6px 10px;
+    color: var(--muted);
+  }
+
+  .nav-arrow {
+    color: var(--faint);
+  }
+
+  .scroll-progress {
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    height: 2px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.08s linear;
+  }
+
+  @media (max-width: 680px) {
+    .nav-group { display: none; }
+  }
+</style>
+
+<script>
+  const NAV_H = 58;
+
+  function initScrollProgress() {
+    const bar = document.getElementById('pm-progress');
+    const update = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const p = h > 0 ? (window.scrollY / h) * 100 : 0;
+      if (bar) bar.style.width = Math.min(100, Math.max(0, p)).toFixed(2) + '%';
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  function initSmoothScroll() {
+    document.querySelectorAll('a[data-scroll]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('data-scroll');
+        const target = id ? document.getElementById(id) : null;
+        if (target) {
+          e.preventDefault();
+          window.scrollTo({
+            top: target.getBoundingClientRect().top + window.scrollY - NAV_H,
+            behavior: 'smooth',
+          });
+        }
+      });
+    });
+  }
+
+  function initNavSpy() {
+    const navLinks = Array.from(document.querySelectorAll<HTMLElement>('[data-nav]'));
+    const sections = ['top', 'stack', 'projects', 'activity']
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((en) => {
+          if (en.isIntersecting) {
+            const id = en.target.id;
+            navLinks.forEach((l) => {
+              const active = l.getAttribute('data-nav') === id;
+              l.style.color = active ? 'var(--ink)' : 'var(--faint)';
+              const dot = l.querySelector<HTMLElement>('[data-dot]');
+              if (dot) dot.style.opacity = active ? '1' : '0';
+            });
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+    );
+
+    sections.forEach((s) => spy.observe(s));
+  }
+
+  initScrollProgress();
+  initSmoothScroll();
+  initNavSpy();
+</script>
