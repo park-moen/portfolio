@@ -100,6 +100,8 @@
         <div class="case-key-name muted">문제</div>
       </div>
       <p class="case-value">
+        컴포넌트 마운트 후 <code>useEffect</code>에서 데이터 패칭이 시작되는 구조였습니다.
+        Route Splitting을 적용하면서 컴포넌트 코드와 데이터를 병렬로 준비하려 했지만,
         <code>lazy()</code> 내부에서 <code>loader</code>를 함께 정의하면 route module
         다운로드가 완료된 이후에야 loader를 실행할 수 있어 waterfall이 남아 있었습니다.
       </p>
@@ -160,7 +162,8 @@
         Axios Response Interceptor에 <code>TokenManager</code> 클래스를 구현해 토큰 재발급
         요청을 단일화했습니다. <code>refreshState</code>(idle | refreshing)로 진행 여부를
         관리해 첫 번째 401만 재발급을 시작하고, 이후 요청은 Promise 기반 대기 큐에
-        추가했습니다. <code>TOKEN_EXPIRED</code>는 재발급 후 재시도,
+        추가했습니다. <code>_retry</code> 플래그로 재시도를 1회로 제한해 무한 루프를 방지했습니다.
+        <code>TOKEN_EXPIRED</code>는 재발급 후 재시도,
         <code>REFRESH_TOKEN_REVOKED</code>는 즉시 로그아웃으로 에러 타입을 분리했습니다.
         Access Token은 Local Storage, Refresh Token은 HttpOnly Cookie에 저장해
         XSS 트레이드오프를 관리했습니다.
