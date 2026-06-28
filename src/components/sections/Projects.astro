@@ -469,6 +469,15 @@ import RealWorldProject from './projects/RealWorldProject.astro';
     grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
   }
 
+  .gallery-grid.stack {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .gallery-grid.stack .gallery-link {
+    height: auto;
+  }
+
   .gallery-figure { margin: 0; }
 
   .gallery-caption {

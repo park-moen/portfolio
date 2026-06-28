@@ -244,7 +244,42 @@ const base = import.meta.env.BASE_URL;
         <a class="result-link">→ 정리 글</a>
       </div>
     </div>
-  </article>
+
+  <div data-reveal class="image-gallery">
+    <div class="gallery-title">NETWORK — Chrome DevTools</div>
+    <div class="gallery-grid stack">
+      <figure class="gallery-figure">
+        <figcaption class="gallery-caption">
+          <span class="gallery-dot before"></span>
+          최적화 전 — 모달이 초기 번들에 포함
+        </figcaption>
+        <a href={`${base}images/portfolio/code-splitting-before.png`} target="_blank" rel="noopener" class="gallery-link">
+          <img
+            src={`${base}images/portfolio/code-splitting-before.png`}
+            alt="최적화 전 — 초기 번들 스크립트 목록"
+            loading="lazy"
+            class="gallery-image"
+          />
+        </a>
+      </figure>
+      <figure class="gallery-figure">
+        <figcaption class="gallery-caption">
+          <span class="gallery-dot after"></span>
+          최적화 후 — register-modal 청크 분리
+        </figcaption>
+        <a href={`${base}images/portfolio/code-splitting-after.png`} target="_blank" rel="noopener" class="gallery-link">
+          <img
+            src={`${base}images/portfolio/code-splitting-after.png`}
+            alt="최적화 후 — register-modal 별도 청크로 분리"
+            loading="lazy"
+            class="gallery-image"
+          />
+        </a>
+      </figure>
+    </div>
+    <p class="gallery-note">초기 로드 시 불러오는 스크립트 목록 · 이미지 클릭 시 원본</p>
+  </div>
+</article>
 
   <!-- CASE 03 -->
   <article data-reveal class="case">
@@ -293,6 +328,41 @@ const base = import.meta.env.BASE_URL;
         </p>
         <a class="result-link">→ 정리 글</a>
       </div>
+    </div>
+
+    <div data-reveal class="image-gallery">
+      <div class="gallery-title">NETWORK — Chrome DevTools</div>
+      <div class="gallery-grid stack">
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot before"></span>
+            최적화 전 — hydration 후 클라이언트에서 API 재요청 (2.06s 대기)
+          </figcaption>
+          <a href={`${base}images/portfolio/before-detail-network.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/before-detail-network.png`}
+              alt="최적화 전 — 클라이언트 API 요청 타이밍"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot after"></span>
+            최적화 후 — 클라이언트 API 요청 제거
+          </figcaption>
+          <a href={`${base}images/portfolio/after-network.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/after-network.png`}
+              alt="최적화 후 — 클라이언트 Network 탭에서 동일 API 요청 없음"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+      </div>
+      <p class="gallery-note">Network 탭 · 이미지 클릭 시 원본</p>
     </div>
   </article>
 </div>
