@@ -312,5 +312,40 @@ const base = import.meta.env.BASE_URL;
         <a class="result-link">→ 정리 글</a>
       </div>
     </div>
+
+    <div data-reveal class="image-gallery">
+      <div class="gallery-title">TURBOREPO — 빌드 시간</div>
+      <div class="gallery-grid stack">
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot before"></span>
+            캐시 미사용 — 약 9초 소요
+          </figcaption>
+          <a href={`${base}images/portfolio/cold-build-before.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/cold-build-before.png`}
+              alt="Turborepo 캐시 미사용 빌드 — 8.969s"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+        <figure class="gallery-figure">
+          <figcaption class="gallery-caption">
+            <span class="gallery-dot after"></span>
+            cache hit — 36ms 복원 (FULL TURBO)
+          </figcaption>
+          <a href={`${base}images/portfolio/cold-build-after.png`} target="_blank" rel="noopener" class="gallery-link">
+            <img
+              src={`${base}images/portfolio/cold-build-after.png`}
+              alt="Turborepo cache hit — 36ms FULL TURBO"
+              loading="lazy"
+              class="gallery-image"
+            />
+          </a>
+        </figure>
+      </div>
+      <p class="gallery-note">터미널 출력 · 이미지 클릭 시 원본</p>
+    </div>
   </article>
 </div>
